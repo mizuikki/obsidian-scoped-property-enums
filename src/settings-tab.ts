@@ -70,8 +70,13 @@ export class ScopedPropertyEnumsSettingTab extends PluginSettingTab {
       )
       .addButton((button) =>
         button.setButtonText("Restore defaults").onClick(async () => {
-          await this.plugin.restoreDefaultSettings();
-          this.display();
+          actionError.empty();
+          try {
+            await this.plugin.restoreDefaultSettings();
+            this.display();
+          } catch {
+            actionError.setText("Could not restore default settings.");
+          }
         }),
       );
   }

@@ -119,4 +119,33 @@ describe("ScopedEnumUpdateService", () => {
     await Promise.all([first, second]);
     expect(frontmatter.status).toBe("completed");
   });
+
+  it("requeues a later identical selection after an intervening different value", async () => {
+    const starts: string[] = [];
+    const releases: Array<() => void> = [];
+    const frontmatter: Record<string, unknown> = { type: "project", status: "active" };
+    const manager: FrontmatterFileManager = {
+      processFrontMatter: vi.fn(async (_file, callback) => {
+        starts.push("start");
+        callback(frontmatter);
+        await new Promise<void>((resolve) => releases.push(resolve));
+      }),
+    };
+    const service = new ScopedEnumUpdateService(
+      manager,
+      () => cloneDefaultSettings().enumRules,
+    );
+    const firstActive = service.update(file, "status", "active");
+    const completed = service.update(file, "status", "completed");
+    const finalActive = service.update(file, "status", "active");
+    expect(finalActive).not.toBe(firstActive);
+    await vi.waitFor(() => expect(starts).toHaveLength(1));
+    releases.shift()?.();
+    await vi.waitFor(() => expect(starts).toHaveLength(2));
+    releases.shift()?.();
+    await vi.waitFor(() => expect(starts).toHaveLength(3));
+    releases.shift()?.();
+    await Promise.all([firstActive, completed, finalActive]);
+    expect(frontmatter.status).toBe("active");
+  });
 });

@@ -28,7 +28,10 @@ export class ScopedEnumUpdateService {
   update(file: TFile, property: string, value: string): Promise<void> {
     const requestKey = `${file.path}\u0000${property}\u0000${value}`;
     const duplicate = this.pending.get(requestKey);
-    if (duplicate) return duplicate;
+    // Only coalesce with the current queue tail so A → B → A still enqueues the final A.
+    if (duplicate && this.queues.get(file.path) === duplicate) {
+      return duplicate;
+    }
 
     const previous = this.queues.get(file.path) ?? Promise.resolve();
     const task = previous
