@@ -1,0 +1,31 @@
+{
+  "name": "obsidian-scoped-property-enums",
+  "version": "0.1.0",
+  "description": "Scoped single-select property menus for Obsidian Properties and Bases.",
+  "main": "main.js",
+  "scripts": {
+    "build": "node esbuild.config.mjs production",
+    "dev": "node esbuild.config.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "verify": "npm run typecheck && npm test && npm run build"
+  },
+  "keywords": [
+    "obsidian",
+    "plugin",
+    "properties",
+    "bases"
+  ],
+  "author": "mnm",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "24.0.15",
+    "builtin-modules": "5.0.0",
+    "esbuild": "0.25.6",
+    "jsdom": "26.1.0",
+    "obsidian": "1.12.3",
+    "typescript": "5.8.3",
+    "vitest": "3.2.7"
+  }
+}

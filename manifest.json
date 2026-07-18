@@ -1,0 +1,9 @@
+{
+  "id": "scoped-property-enums",
+  "name": "Scoped Property Enums",
+  "version": "0.1.0",
+  "minAppVersion": "1.12.7",
+  "description": "Adds path- and note-type-scoped single-select menus to Properties and Bases.",
+  "author": "mnm",
+  "isDesktopOnly": true
+}
