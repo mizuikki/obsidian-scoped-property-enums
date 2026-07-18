@@ -1,0 +1,66 @@
+.scoped-property-enums-trigger {
+  position: absolute;
+  inset-inline-end: 4px;
+  top: 50%;
+  z-index: 2;
+  width: 24px;
+  height: 24px;
+  padding: 3px;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.bases-table-cell > .scoped-property-enums-trigger {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-primary);
+  border-radius: 4px;
+}
+
+.metadata-property-value:has(> .scoped-property-enums-trigger),
+.bases-table-cell:has(> .scoped-property-enums-trigger) {
+  position: relative;
+  padding-inline-end: 30px;
+}
+
+.scoped-property-enums-trigger.is-unsupported,
+.scoped-property-enums-unsupported,
+.scoped-property-enums-settings-status.is-invalid,
+.scoped-property-enums-settings-action-error {
+  color: var(--text-error);
+}
+
+.scoped-property-enums-settings-status {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+}
+
+.scoped-property-enums-settings-status.is-valid {
+  color: var(--text-success);
+}
+
+.scoped-property-enums-settings-editor {
+  display: block;
+  width: 100%;
+  min-height: 420px;
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+}
+
+.scoped-property-enums-settings-section {
+  margin-top: 18px;
+}
+
+.scoped-property-enums-settings-section h3,
+.scoped-property-enums-settings-section p {
+  margin: 0 0 8px;
+}
+
+.scoped-property-enums-settings-action-error:not(:empty) {
+  margin: 8px 0;
+}
